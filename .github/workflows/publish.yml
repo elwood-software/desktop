@@ -33,7 +33,8 @@ jobs:
           submodules: "true"
 
       - run: |
-          rsync -abviuzP ./elwood ./
+
+          cd ./elwood && rsync -abviuzP ./ ../
           ls
 
       - name: Install

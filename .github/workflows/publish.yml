@@ -32,7 +32,9 @@ jobs:
         with:
           submodules: "true"
 
-      - run: rsync -a ./elwood .
+      - run: |
+          rsync -a ./elwood .
+          ls
 
       - name: Install
         uses: ./.github/composite-actions/install

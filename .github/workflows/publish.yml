@@ -45,6 +45,10 @@ jobs:
         working-directory: ./elwood/apps/desktop
         run: pnpm build
 
+      - name: Package Desktop App
+        working-directory: ./elwood/apps/desktop
+        run: pnpm package
+
       - name: Publish releases
         working-directory: ./elwood/apps/desktop
         env:

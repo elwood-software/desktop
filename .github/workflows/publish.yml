@@ -44,7 +44,10 @@ jobs:
       - name: Install & Build Desktop App
         working-directory: ./elwood/apps/desktop
         run: |
-          pnpm install
+          pnpm i --ignore-scripts
+          ./node_modules/.bin/ts-node .erb/scripts/check-native-dep.js
+          ./node_modules/.bin/electron-builder install-app-deps
+          pnpm run build:dll
           pnpm build
 
       - name: Package Desktop App

@@ -43,14 +43,13 @@ jobs:
       - name: Build Packages
         run: pnpm build
 
-      - name: Install & Build Desktop App
+      - name: Install Desktop App
         working-directory: apps/desktop
-        run: |
-          pnpm i --ignore-scripts
-          ./node_modules/.bin/ts-node .erb/scripts/check-native-dep.js
-          ./node_modules/.bin/electron-builder install-app-deps
-          pnpm run build:dll
-          pnpm build
+        run: pnpm install
+
+      - name: Install Desktop App
+        working-directory: apps/desktop
+        run: pnpm build
 
       - name: Package Desktop App
         working-directory: apps/desktop

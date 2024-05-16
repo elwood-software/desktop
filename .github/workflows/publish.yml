@@ -45,6 +45,7 @@ jobs:
         working-directory: ./elwood/apps/desktop
         run: |
           pnpm install
+          pnpm build:postinstall
           pnpm build
 
       - name: Package Desktop App

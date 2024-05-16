@@ -32,10 +32,6 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Git Submodule Update
-        run: |
-          git submodule update --remote
-
       - name: Install
         uses: ./elwood/.github/composite-actions/install
         with:

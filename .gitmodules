@@ -1,0 +1,3 @@
+[submodule "elwood"]
+	path = elwood
+	url = https://github.com/elwood-software/elwood.git

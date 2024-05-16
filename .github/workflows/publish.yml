@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseType:
+        description: stable or canary?
+        required: true
+        type: choice
+        options:
+          - canary
+          - stable
+
+      semverType:
+        description: semver type?
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+jobs:
+  publish:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest]
+
+    steps:
+      - name: Checkout git repo
+        uses: actions/checkout@v3
+        with:
+          submodules: "true"
+
+      - name: Move
+        run: mv -r ./elwood/* .
+
+      - name: Install
+        uses: ./.github/composite-actions/install
+
+      - name: Build Packages
+        run: pnpm build
+
+      - name: Build Desktop App
+        working-directory: ./apps/desktop
+        run: pnpm build
+
+      - name: Publish releases
+        working-directory: ./apps/desktop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm electron-builder -- --publish always --win

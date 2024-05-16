@@ -32,17 +32,15 @@ jobs:
         with:
           submodules: "true"
 
+      - run: cp -R ./elwood .
+
       - name: Install
-        uses: ./elwood/.github/composite-actions/install
-        with:
-          working-directory: ./elwood
+        uses: ./.github/composite-actions/install
 
       - name: Build Packages
-        working-directory: ./elwood
         run: pnpm build
 
       - name: Install & Build Desktop App
-        working-directory: ./elwood/apps/desktop
         run: |
           pnpm i --ignore-scripts
           ./node_modules/.bin/ts-node .erb/scripts/check-native-dep.js
@@ -51,11 +49,9 @@ jobs:
           pnpm build
 
       - name: Package Desktop App
-        working-directory: ./elwood/apps/desktop
         run: pnpm package
 
       - name: Publish releases
-        working-directory: ./elwood/apps/desktop
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

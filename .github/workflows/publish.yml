@@ -32,10 +32,7 @@ jobs:
         with:
           submodules: "true"
 
-      - run: |
-
-          cd ./elwood && rsync -abviuzP ./ ../
-          ls
+      - run: cd ./elwood && rsync -abviuzP ./ ../
 
       - name: Install
         uses: ./.github/composite-actions/install
@@ -48,6 +45,9 @@ jobs:
 
       - name: Install Desktop App
         run: pnpm -C apps/desktop build
+
+      - name: PostInstall Desktop App
+        run: pnpm -C apps/desktop run:postinstall
 
       - name: Package Desktop App
         run: pnpm -C apps/desktop package

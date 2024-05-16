@@ -33,7 +33,7 @@ jobs:
           submodules: "true"
 
       - name: Move
-        run: mv ./elwood/* .
+        run: cp -R ./elwood/* . && rm -r ./elwood
 
       - name: Install
         uses: ./.github/composite-actions/install

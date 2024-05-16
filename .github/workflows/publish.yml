@@ -41,9 +41,11 @@ jobs:
         working-directory: ./elwood
         run: pnpm build
 
-      - name: Build Desktop App
+      - name: Install & Build Desktop App
         working-directory: ./elwood/apps/desktop
-        run: pnpm build
+        run: |
+          pnpm install
+          pnpm build
 
       - name: Package Desktop App
         working-directory: ./elwood/apps/desktop

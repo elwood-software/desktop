@@ -54,10 +54,13 @@ jobs:
             pnpm run build:dll
 
       - name: Package Desktop App
-        run: pnpm -C apps/desktop package
+        run: |
+          cd apps/desktop && \ 
+          pnpm package
 
       - name: Publish releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pnpm -C apps/desktop electron-builder -- --publish always --win
+          cd apps/desktop && \ 
+          ./node_modules/.bin/electron-builder -- --publish always --win

@@ -44,6 +44,7 @@ jobs:
         run: pnpm build
 
       - name: Install & Build Desktop App
+        working-directory: apps/desktop
         run: |
           pnpm i --ignore-scripts
           ./node_modules/.bin/ts-node .erb/scripts/check-native-dep.js
@@ -52,9 +53,11 @@ jobs:
           pnpm build
 
       - name: Package Desktop App
+        working-directory: apps/desktop
         run: pnpm package
 
       - name: Publish releases
+        working-directory: apps/desktop
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

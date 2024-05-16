@@ -32,21 +32,19 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Move
-        run: cp -R ./elwood/* . && rm -r ./elwood
-
       - name: Install
-        uses: ./.github/composite-actions/install
+        uses: ./elwood/.github/composite-actions/install
 
       - name: Build Packages
+        working-directory: ./elwood
         run: pnpm build
 
       - name: Build Desktop App
-        working-directory: ./apps/desktop
+        working-directory: ./elwood/apps/desktop
         run: pnpm build
 
       - name: Publish releases
-        working-directory: ./apps/desktop
+        working-directory: ./elwood/apps/desktop
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

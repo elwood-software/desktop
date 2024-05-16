@@ -48,9 +48,10 @@ jobs:
 
       - name: PostInstall Desktop App
         run: |
-          pnpm -C apps/desktop run ts-node .erb/scripts/check-native-dep.js
-          pnpm -C apps/desktop run electron-builder install-app-deps 
-          pnpm -C apps/desktop run build:dll
+          cd apps/desktop && \
+            ./node_modules/.bin/ts-node .erb/scripts/check-native-dep.js && \
+            ./node_modules/.bin/electron-builder install-app-deps  && \
+            pnpm run build:dll
 
       - name: Package Desktop App
         run: pnpm -C apps/desktop package

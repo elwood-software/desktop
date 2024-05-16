@@ -32,7 +32,7 @@ jobs:
         with:
           submodules: "true"
 
-      - run: cp -R ./elwood . & rm -r ./elwood
+      - run: cp -R ./elwood/* . & rm -r ./elwood
 
       - name: Install
         uses: ./.github/composite-actions/install

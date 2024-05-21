@@ -32,19 +32,19 @@ jobs:
         with:
           submodules: "true"
 
-      - run: cd ./elwood && rsync -abviuzP ./ ../
-
       - name: Install
         uses: ./.github/composite-actions/install
+        with:
+          working-directory: ./elwood
 
-      - name: Build Packages
-        run: pnpm build
+      - name: Update submodules
+        run: make update
 
-      - name: Install Desktop App
-        run: pnpm -C apps/desktop install
+      - name: Build
+        run: make build
 
-      - name: Install Desktop App
-        run: pnpm -C apps/desktop build
+      - name: Build App
+        run: make build-app
 
       - name: PostInstall Desktop App
         run: |

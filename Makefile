@@ -2,7 +2,7 @@ include .env
 
 root := $(shell pwd)
 
-all: install build build-app package-app publish-app
+all: install build build-app publish-app
 
 reset: clean update
 	
@@ -24,11 +24,7 @@ build:
 
 build-app:
 	@echo "Building app..."
-	cd ./elwood/apps/desktop && pnpm run build
-
-package-app:
-	@echo "Packaging..."
-	cd ./elwood/apps/desktop && pnpm run package
+	cd ./elwood/apps/desktop && pnpm run build:mac
 
 publish-app:
 	@echo "Publishing..."
